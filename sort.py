@@ -20,6 +20,23 @@ Instructions:
 import sys, time
 
 '''
+In place selection sort developed in class with some python
+additions to the pseudocode
+'''
+def ip_selection_sort(L):
+	n = len(L)
+
+	for k in range(n - 1):
+		j = k
+		for i in range(k+1, n):
+			if L[i].lower() < L[j].lower():
+				j = i
+		# swap(L[k], L[j])
+		L[k], L[j] = L[j], L[k]
+
+	return L
+
+'''
 Selection sort developed in class
 '''
 def selection_sort(L):
@@ -72,12 +89,12 @@ def do_selection_sort():
 	# 3. Print the first 10 words
 	print_first_lines(L, 10)
 
-	print("Selection sort...")
+	print("In place selection sort...")
 
 	start = time.perf_counter()
 
 	# 4. Sort the first n words
-	sorted = selection_sort(L[:n])
+	sorted = ip_selection_sort(L[:n])
 
 	end = time.perf_counter()
 
@@ -89,14 +106,14 @@ def do_selection_sort():
 	print_first_lines(sorted, 10)
 
 	# 7. Print the elapsed time
-	print("Elapsed time: " + str(elapsedTime))
+	print("Elapsed time: " + str(elapsedTime) + " seconds")
 
 def merge(AS, BS):
 	merged = []
 	ai = bi = 0
 
-	while ai < len(AS) or bi < len(BS):
-		if AS[ai] <= BS[bi]:
+	while ai < len(AS) and bi < len(BS):
+		if AS[ai].lower() <= BS[bi].lower():
 			merged.append(AS[ai])
 			ai += 1
 		else:
@@ -196,53 +213,7 @@ def main():
 	elif ans != "":
 		print("\nNot a valid choice, try again")
 
-	sys.exit()
-
-
-
-	# if len(sys.argv) == 4:
-	# 	filename = sys.argv[1]
-	#
-	# 	n = int(sys.argv[2])
-	# 	w = int(sys.argv[3])
-	#
-	# 	f = open(filename, 'r')
-	# 	allPackages = []
-	# 	packageLengthVerification = None
-	#
-	# 	i = 0
-	# 	for line in f:
-	#
-	# 		if i > n:
-	# 			break
-	#
-	# 		# skip the first line
-	# 		if i is not 0:
-	# 			components = line.split(' ')
-	# 			package = DebianPackage(components[0], int(components[1]), int(components[2]))
-	# 			allPackages.append(package)
-	# 		else:
-	# 			packageLengthVerification = int(line)
-	#
-	# 		i = i + 1
-	#
-	# 	assert(len(allPackages) == n)
-	#
-	# 	start = time.perf_counter()
-	#
-	# 	# Algorithm
-	# 	bestPackageSet = optimalPackageSet(allPackages, w)
-	#
-	# 	end = time.perf_counter()
-	#
-	# 	# Display results...
-	# 	printResults(bestPackageSet, start, end, n, w)
-	#
-	# else:
-	# 	print('ERROR: incorrect number of arguments specified\n\n' +
-	# 		  'USAGE: \n\tpython3 <source code file> <text file> <n> <W> OR:' +
-	# 		  '\n\tpython3 <source code file> <text file> <lower bound> <upper bound> --scatter')
-	# 	sys.exit(1)
+	sys.exit(0)
 
 if __name__ == '__main__':
 	main()
